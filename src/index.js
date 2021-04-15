@@ -1,17 +1,30 @@
+import 'nprogress/nprogress.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from 'store/contexts/FirebaseContext';
+import { SettingsProvider } from 'store/contexts/SettingsContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+      <StyledEngineProvider injectFirst>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <SettingsProvider>
+            <BrowserRouter>
+              <AuthProvider>
+                <App />
+              </AuthProvider>
+            </BrowserRouter>
+          </SettingsProvider>
+        </LocalizationProvider>
+      </StyledEngineProvider>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
