@@ -15,7 +15,7 @@ function AuthGuard(props) {
       setRequestedLocation(location.pathname);
     }
 
-    return Login;
+    return <Login />;
   }
 
   if (requestedLocation && location.pathname !== requestedLocation) {

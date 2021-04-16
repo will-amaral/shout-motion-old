@@ -39,6 +39,7 @@ export const AuthProvider = (props) => {
   useEffect(
     () =>
       firebase.auth().onAuthStateChanged((user) => {
+        console.log(user);
         if (user) {
           // Here you should extract the complete user profile to make it available in your entire app.
           // The auth state only provides basic information.
@@ -50,8 +51,7 @@ export const AuthProvider = (props) => {
                 id: user.uid,
                 avatar: user.photoURL,
                 email: user.email,
-                name: 'Jane Rotanson',
-                plan: 'Premium',
+                name: user.displayName,
               },
             },
           });

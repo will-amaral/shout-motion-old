@@ -47,7 +47,9 @@ function Navbar(props) {
             ml: 2,
           }}
         />
-        <Box sx={{ ml: 2 }}>{/* <AccountPopover /> */}</Box>
+        <Box sx={{ ml: 2 }}>
+          <AccountPopover />
+        </Box>
       </Toolbar>
     </DashboardNavbarRoot>
   );

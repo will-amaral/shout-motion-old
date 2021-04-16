@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthGuard, LoadingScreen } from 'components';
+import { AuthGuard, GuestGuard, LoadingScreen } from 'components';
 import Dashboard from 'components/layout/Dashboard';
 
 const Loadable = (Component) => (props) => (
@@ -11,14 +11,34 @@ const Loadable = (Component) => (props) => (
 
 const Login = Loadable(lazy(() => import('pages/Auth/Login')));
 
+const Blank = Loadable(lazy(() => import('pages/Blank')));
+
 const routes = [
   {
     path: 'login',
-    element: <Login />,
+    element: (
+      <GuestGuard>
+        <Login />
+      </GuestGuard>
+    ),
   },
   {
     path: '/',
-    element: <Dashboard />,
+    element: (
+      <AuthGuard>
+        <Dashboard />
+      </AuthGuard>
+    ),
+    children: [
+      {
+        path: '/',
+        element: <Navigate to='/home' replace />,
+      },
+      {
+        path: '*',
+        element: <Blank />,
+      },
+    ],
   },
 ];
 
