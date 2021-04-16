@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAuth } from 'hooks';
+import Login from 'pages/Auth/Login';
 
 function AuthGuard(props) {
   const { children } = props;
@@ -14,7 +15,7 @@ function AuthGuard(props) {
       setRequestedLocation(location.pathname);
     }
 
-    return '';
+    return Login;
   }
 
   if (requestedLocation && location.pathname !== requestedLocation) {
