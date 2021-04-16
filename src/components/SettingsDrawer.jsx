@@ -93,7 +93,7 @@ const SettingsDrawer = () => {
             value={values.theme}
             variant='outlined'
           >
-            {Object.keys(THEMES).map((theme) => (
+            {Object.values(THEMES).map((theme) => (
               <option key={theme} value={theme}>
                 {theme
                   .split('_')

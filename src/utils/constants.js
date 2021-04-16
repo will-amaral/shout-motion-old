@@ -1,5 +1,6 @@
 export const THEMES = {
-  LIGHT: 'LIGHT',
-  DARK: 'DARK',
-  NATURE: 'NATURE',
+  LIGHT: 'CARIBE',
+  DARK: 'CARIBE_DARK',
+  ALT_LIGHT: 'ALVORADA',
+  ALT_DARK: 'ALVORADA_DARK',
 };

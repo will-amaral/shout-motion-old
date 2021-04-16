@@ -1,7 +1,7 @@
 import React from 'react';
-
+import { Logo } from 'components';
 const Blank = () => {
-  return <div>Teste</div>;
+  return <Logo />;
 };
 
 export default Blank;

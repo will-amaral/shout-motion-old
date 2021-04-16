@@ -111,7 +111,7 @@ const themesOptions = {
       mode: 'light',
       primary: {
         contrastText: '#ffffff',
-        main: '#5664d2',
+        main: '#00DA9C',
       },
       success: {
         contrastText: '#ffffff',
@@ -151,7 +151,7 @@ const themesOptions = {
       mode: 'dark',
       primary: {
         contrastText: '#ffffff',
-        main: '#688eff',
+        main: '#00DA9C',
       },
       success: {
         contrastText: '#ffffff',
@@ -168,7 +168,52 @@ const themesOptions = {
     },
     shadows: darkShadows,
   },
-  [THEMES.NATURE]: {
+  [THEMES.ALT_LIGHT]: {
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            '&::placeholder': {
+              opacity: 0.86,
+              color: '#42526e',
+            },
+          },
+        },
+      },
+    },
+    palette: {
+      action: {
+        active: '#6b778c',
+      },
+      background: {
+        default: '#f4f5f7',
+        paper: '#ffffff',
+      },
+      error: {
+        contrastText: '#ffffff',
+        main: '#f44336',
+      },
+      mode: 'light',
+      primary: {
+        contrastText: '#ffffff',
+        main: '#f46b45',
+      },
+      success: {
+        contrastText: '#ffffff',
+        main: '#4caf50',
+      },
+      text: {
+        primary: '#172b4d',
+        secondary: '#6b778c',
+      },
+      warning: {
+        contrastText: '#ffffff',
+        main: '#ff9800',
+      },
+    },
+    shadows: lightShadows,
+  },
+  [THEMES.ALT_DARK]: {
     components: {
       MuiTableCell: {
         styleOverrides: {
@@ -191,7 +236,7 @@ const themesOptions = {
       mode: 'dark',
       primary: {
         contrastText: '#ffffff',
-        main: '#01ab56',
+        main: '#f46b45',
       },
       success: {
         contrastText: '#ffffff',
