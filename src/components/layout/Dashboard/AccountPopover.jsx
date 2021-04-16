@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   ButtonBase,
+  CircularProgress,
   Divider,
   ListItemIcon,
   ListItemText,
@@ -22,6 +23,7 @@ const AccountPopover = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,6 +34,7 @@ const AccountPopover = () => {
   };
 
   const handleLogout = async () => {
+    setLoading(true);
     try {
       handleClose();
       await logout();
@@ -45,6 +48,8 @@ const AccountPopover = () => {
         },
         variant: 'error',
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,7 +91,7 @@ const AccountPopover = () => {
             {user.name}
           </Typography>
           <Typography color='textSecondary' variant='subtitle2'>
-            Shout Motion
+            {user.role}
           </Typography>
         </Box>
         <Divider />
@@ -117,7 +122,14 @@ const AccountPopover = () => {
           </MenuItem>
         </Box>
         <Box sx={{ p: 2 }}>
-          <Button color='primary' fullWidth onClick={handleLogout} variant='outlined'>
+          <Button
+            disabled={loading}
+            startIcon={loading && <CircularProgress size={15} />}
+            color='primary'
+            fullWidth
+            onClick={handleLogout}
+            variant='outlined'
+          >
             Sair
           </Button>
         </Box>

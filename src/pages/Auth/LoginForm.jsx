@@ -7,6 +7,7 @@ import {
   FormHelperText,
   TextField,
   Typography,
+  CircularProgress,
 } from '@material-ui/core';
 import { useAuth, useIsMountedRef } from 'hooks';
 
@@ -39,7 +40,7 @@ const LoginForm = (props) => {
         variant='contained'
       >
         <Box alt='Google' component='img' src='/static/icons/google.svg' sx={{ mr: 1 }} />
-        Google
+        Login com Google
       </Button>
       <Box
         sx={{
@@ -52,7 +53,7 @@ const LoginForm = (props) => {
           <Divider orientation='horizontal' />
         </Box>
         <Typography color='textSecondary' sx={{ m: 2 }} variant='body1'>
-          OR
+          OU
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Divider orientation='horizontal' />
@@ -60,16 +61,16 @@ const LoginForm = (props) => {
       </Box>
       <Formik
         initialValues={{
-          email: 'demo@devias.io',
-          password: 'Password123!',
+          email: '',
+          password: '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()
-            .email('Must be a valid email')
+            .email('Deve ser um e-mail válido')
             .max(255)
-            .required('Email is required'),
-          password: Yup.string().max(255).required('Password is required'),
+            .required('Email é obrigatório'),
+          password: Yup.string().max(255).required('Senha é obrigatório'),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -103,7 +104,7 @@ const LoginForm = (props) => {
               error={Boolean(touched.email && errors.email)}
               fullWidth
               helperText={touched.email && errors.email}
-              label='Email Address'
+              label='Email'
               margin='normal'
               name='email'
               onBlur={handleBlur}
@@ -116,7 +117,7 @@ const LoginForm = (props) => {
               error={Boolean(touched.password && errors.password)}
               fullWidth
               helperText={touched.password && errors.password}
-              label='Password'
+              label='Senha'
               margin='normal'
               name='password'
               onBlur={handleBlur}
@@ -138,8 +139,9 @@ const LoginForm = (props) => {
                 size='large'
                 type='submit'
                 variant='contained'
+                startIcon={isSubmitting && <CircularProgress size={15} />}
               >
-                Log In
+                Entrar
               </Button>
             </Box>
           </form>

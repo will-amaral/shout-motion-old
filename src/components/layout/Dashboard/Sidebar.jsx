@@ -8,13 +8,19 @@ import {
   Divider,
   Drawer,
   Hidden,
-  Link,
   Typography,
 } from '@material-ui/core';
-import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useAuth } from 'hooks';
 import { Logo, NavSection, Scrollbar } from 'components';
-import { Home } from 'components/icons';
+import {
+  Home,
+  ChartPie,
+  User,
+  Users,
+  AcademicCap,
+  Calendar,
+  CurrencyDollar,
+} from 'components/icons';
 
 const sections = [
   {
@@ -25,6 +31,41 @@ const sections = [
         path: '/home',
         icon: <Home />,
       },
+      {
+        title: 'Relatórios',
+        path: '/relatorios',
+        icon: <ChartPie />,
+      },
+      {
+        title: 'Minha Conta',
+        path: '/conta',
+        icon: <User />,
+      },
+    ],
+  },
+  {
+    title: 'Gerenciamento',
+    items: [
+      {
+        title: 'Alunos',
+        path: '/alunos',
+        icon: <Users />,
+      },
+      {
+        title: 'Professores',
+        path: '/professores',
+        icon: <AcademicCap />,
+      },
+      {
+        title: 'Agendamento de Aulas',
+        path: '/agendamento',
+        icon: <Calendar />,
+      },
+      {
+        title: 'Financeiro',
+        path: '/financeiro',
+        icon: <CurrencyDollar />,
+      },
     ],
   },
 ];
@@ -32,11 +73,13 @@ const sections = [
 function Sidebar(props) {
   const { onMobileClose, openMobile } = props;
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
+    // eslint-disable-next-line
   }, [location.pathname]);
 
   const content = (
@@ -66,6 +109,38 @@ function Sidebar(props) {
             </RouterLink>
           </Box>
         </Hidden>
+        <Box sx={{ p: 2 }}>
+          <Box
+            sx={{
+              alignItems: 'center',
+              backgroundColor: 'background.default',
+              borderRadius: 1,
+              display: 'flex',
+              overflow: 'hidden',
+              p: 2,
+            }}
+          >
+            <RouterLink to='/conta'>
+              <Avatar
+                src={user.avatar}
+                sx={{
+                  cursor: 'pointer',
+                  height: 48,
+                  width: 48,
+                }}
+              />
+            </RouterLink>
+            <Box sx={{ ml: 2 }}>
+              <Typography color='textPrimary' variant='subtitle2'>
+                {user.name}
+              </Typography>
+              <Typography color='textSecondary' variant='body2'>
+                {user.role}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+        <Divider />
         <Box sx={{ p: 2 }}>
           {sections.map((section) => (
             <NavSection

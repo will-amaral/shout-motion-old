@@ -4,6 +4,7 @@ import { AppBar, Box, Hidden, IconButton, Toolbar } from '@material-ui/core';
 import { experimentalStyled } from '@material-ui/core/styles';
 import { Menu } from 'components/icons';
 import { Logo } from 'components';
+import { useIsDark } from 'hooks';
 import AccountPopover from './AccountPopover';
 
 const DashboardNavbarRoot = experimentalStyled(AppBar)(({ theme }) => ({
@@ -22,6 +23,7 @@ const DashboardNavbarRoot = experimentalStyled(AppBar)(({ theme }) => ({
 
 function Navbar(props) {
   const { onSidebarMobileOpen, ...other } = props;
+  const isDark = useIsDark();
 
   return (
     <DashboardNavbarRoot {...other}>
@@ -34,6 +36,7 @@ function Navbar(props) {
         <Hidden lgDown>
           <RouterLink to='/'>
             <Logo
+              isWhite={!isDark}
               sx={{
                 height: 40,
                 width: 40,

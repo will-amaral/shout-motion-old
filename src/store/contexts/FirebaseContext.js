@@ -38,11 +38,11 @@ export const AuthProvider = (props) => {
 
   useEffect(
     () =>
-      firebase.auth().onAuthStateChanged((user) => {
-        console.log(user);
+      firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-          // Here you should extract the complete user profile to make it available in your entire app.
-          // The auth state only provides basic information.
+          const doc = await firebase.firestore().collection('Users').doc(user.uid).get();
+          const { address, birthdate, cpf, gender, name, role } = doc.data();
+
           dispatch({
             type: 'AUTH_STATE_CHANGED',
             payload: {
@@ -51,7 +51,12 @@ export const AuthProvider = (props) => {
                 id: user.uid,
                 avatar: user.photoURL,
                 email: user.email,
-                name: user.displayName,
+                name,
+                address,
+                cpf,
+                gender,
+                role,
+                birtdate: new Date(birthdate.seconds),
               },
             },
           });
