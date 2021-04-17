@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyC3newJJWmsY7-W0777kOeE_Hq9WSVCFSI',
-  authDomain: 'shout-motion.firebaseapp.com',
-  projectId: 'shout-motion',
-  storageBucket: 'shout-motion.appspot.com',
-  messagingSenderId: '723876090231',
-  appId: '1:723876090231:web:5265ca5f8c075c1a7b5172',
-  measurementId: 'G-815C6M5QHP',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
