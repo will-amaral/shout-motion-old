@@ -1,4 +1,5 @@
 export { default as AuthGuard } from './AuthGuard';
+export { default as Card } from './Card';
 export { default as GlobalStyles } from './GlobalStyles';
 export { default as GuestGuard } from './GuestGuard';
 export { default as LoadingScreen } from './LoadingScreen';

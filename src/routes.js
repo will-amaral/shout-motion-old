@@ -9,8 +9,11 @@ const Loadable = (Component) => (props) => (
   </Suspense>
 );
 
+// Auth Routes
 const Login = Loadable(lazy(() => import('pages/Auth/Login')));
-
+// Dashboard Routes - Geral
+const Home = Loadable(lazy(() => import('pages/Geral/Home')));
+//Dashboard Routes - outros
 const Blank = Loadable(lazy(() => import('pages/Blank')));
 
 const routes = [
@@ -33,6 +36,10 @@ const routes = [
       {
         path: '/',
         element: <Navigate to='/home' replace />,
+      },
+      {
+        path: 'home',
+        element: <Home />,
       },
       {
         path: '*',

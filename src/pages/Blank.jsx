@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { Box, Container, Typography } from '@material-ui/core';
+import { useSettings } from 'hooks';
 
 function Blank() {
+  const { settings } = useSettings();
   return (
     <>
       <Helmet>
@@ -14,7 +16,7 @@ function Blank() {
           py: 8,
         }}
       >
-        <Container maxWidth='xl'>
+        <Container maxWidth={settings.compact ? 'xl' : false}>
           <Typography color='textSecondary' variant='overline'>
             Em Construção
           </Typography>
