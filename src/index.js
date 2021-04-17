@@ -7,8 +7,8 @@ import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
-import { AuthProvider } from 'store/contexts/FirebaseContext';
-import { SettingsProvider } from 'store/contexts/SettingsContext';
+import { AuthProvider } from 'contexts/FirebaseContext';
+import { SettingsProvider } from 'contexts/SettingsContext';
 
 ReactDOM.render(
   <React.StrictMode>
