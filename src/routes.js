@@ -1,18 +1,14 @@
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthGuard, GuestGuard, LoadingScreen } from 'components';
+import { AuthGuard, GuestGuard, Loadable } from 'components';
 import Dashboard from 'components/layout/Dashboard';
-
-const Loadable = (Component) => (props) => (
-  <Suspense fallback={<LoadingScreen />}>
-    <Component {...props} />
-  </Suspense>
-);
 
 // Auth Routes
 const Login = Loadable(lazy(() => import('pages/Auth/Login')));
 // Dashboard Routes - Geral
 const Home = Loadable(lazy(() => import('pages/Geral/Home')));
+// Dashboard Routes - Gerenciamento
+const Alunos = Loadable(lazy(() => import('pages/Gerenciamento/Alunos')));
 //Dashboard Routes - outros
 const Blank = Loadable(lazy(() => import('pages/Blank')));
 
@@ -40,6 +36,10 @@ const routes = [
       {
         path: 'home',
         element: <Home />,
+      },
+      {
+        path: 'alunos',
+        element: <Alunos />,
       },
       {
         path: '*',

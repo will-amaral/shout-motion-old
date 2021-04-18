@@ -12,63 +12,8 @@ import {
 } from '@material-ui/core';
 import { useAuth } from 'hooks';
 import { Logo, NavSection, Scrollbar } from 'components';
-import {
-  Home,
-  ChartPie,
-  User,
-  Users,
-  AcademicCap,
-  Calendar,
-  CurrencyDollar,
-} from 'components/icons';
-
-const sections = [
-  {
-    title: 'Geral',
-    items: [
-      {
-        title: 'Home',
-        path: '/home',
-        icon: <Home />,
-      },
-      {
-        title: 'Relatórios',
-        path: '/relatorios',
-        icon: <ChartPie />,
-      },
-      {
-        title: 'Minha Conta',
-        path: '/conta',
-        icon: <User />,
-      },
-    ],
-  },
-  {
-    title: 'Gerenciamento',
-    items: [
-      {
-        title: 'Alunos',
-        path: '/alunos',
-        icon: <Users />,
-      },
-      {
-        title: 'Professores',
-        path: '/professores',
-        icon: <AcademicCap />,
-      },
-      {
-        title: 'Agendamento de Aulas',
-        path: '/agendamento',
-        icon: <Calendar />,
-      },
-      {
-        title: 'Financeiro',
-        path: '/financeiro',
-        icon: <CurrencyDollar />,
-      },
-    ],
-  },
-];
+import { ArrowRight } from 'components/icons';
+import sections from './sections';
 
 function Sidebar(props) {
   const { onMobileClose, openMobile } = props;
@@ -170,6 +115,7 @@ function Sidebar(props) {
             sx={{ mt: 2 }}
             to='/suporte'
             variant='contained'
+            endIcon={<ArrowRight />}
           >
             Suporte
           </Button>
