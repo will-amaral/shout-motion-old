@@ -9,6 +9,7 @@ const Login = Loadable(lazy(() => import('pages/Auth/Login')));
 const Home = Loadable(lazy(() => import('pages/Geral/Home')));
 // Dashboard Routes - Gerenciamento
 const Alunos = Loadable(lazy(() => import('pages/Gerenciamento/Alunos')));
+const AlunosNovo = Loadable(lazy(() => import('pages/Gerenciamento/Alunos/AlunosNew')));
 //Dashboard Routes - outros
 const Blank = Loadable(lazy(() => import('pages/Blank')));
 
@@ -40,6 +41,10 @@ const routes = [
       {
         path: 'alunos',
         element: <Alunos />,
+      },
+      {
+        path: 'alunos/novo',
+        element: <AlunosNovo />,
       },
       {
         path: '*',
