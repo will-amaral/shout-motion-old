@@ -1,20 +1,31 @@
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { Wrapper, Header, Breadcrumbs, Table } from 'components';
+import { UserAdd } from 'components/icons';
+import columns from './columns';
 
 const rows = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'XGrid', col2: 'is Awesome' },
-  { id: 3, col1: 'Material-UI', col2: 'is Amazing' },
-];
-
-const columns = [
-  { field: 'col1', headerName: 'Column 1', flex: 1 },
-  { field: 'col2', headerName: 'Column 2', flex: 1 },
+  { id: 1, name: 'João Ribeiro', email: 'joao@mail.com' },
+  { id: 2, name: 'Maria Souza', email: 'maria@mail.com' },
+  { id: 3, name: 'Daniel Santos', email: 'daniel@mail.com' },
 ];
 
 function AlunosList() {
   return (
     <Wrapper title='Alunos | ShoutMotion'>
-      <Header title='Alunos'>
+      <Header
+        title='Alunos'
+        action={
+          <Button
+            variant='contained'
+            startIcon={<UserAdd />}
+            component={Link}
+            to='/alunos/novo'
+          >
+            Cadastrar Aluno
+          </Button>
+        }
+      >
         <Breadcrumbs
           paths={[
             { to: '/home', text: 'Home' },
@@ -22,7 +33,7 @@ function AlunosList() {
           ]}
         />
       </Header>
-      <Table rows={rows} columns={columns} />
+      <Table rows={rows} columns={columns} rowHeight={75} />
     </Wrapper>
   );
 }

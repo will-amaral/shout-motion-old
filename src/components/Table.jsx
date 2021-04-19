@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
           : 'rgba(145, 158, 171, 0.24)'
       }`,
     },
+    '& .MuiDataGrid-columnSeparator': {
+      color: 'transparent',
+    },
   },
 }));
 
