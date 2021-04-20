@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import ptBr from 'date-fns/locale/pt-BR';
 import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
 import { AuthProvider } from 'contexts/FirebaseContext';
@@ -14,7 +15,7 @@ ReactDOM.render(
   <React.StrictMode>
     <HelmetProvider>
       <StyledEngineProvider injectFirst>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBr}>
           <SettingsProvider>
             <BrowserRouter>
               <AuthProvider>

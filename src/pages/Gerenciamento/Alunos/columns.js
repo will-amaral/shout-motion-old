@@ -1,6 +1,6 @@
 import { Avatar, Box, Typography, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
-import { parseISO, differenceInCalendarYears } from 'date-fns';
+import { differenceInCalendarYears } from 'date-fns';
 
 const columns = [
   {
@@ -10,7 +10,7 @@ const columns = [
     renderCell: (params) => (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
-          src={params.getValue('photoUrl')}
+          src={params.row.photoUrl}
           sx={{
             height: 42,
             width: 42,
@@ -23,12 +23,12 @@ const columns = [
             color='inherit'
             component={RouterLink}
             variant='subtitle2'
-            to={`/alunos/${params.getValue('id')}`}
+            to={`/alunos/${params.row.id}`}
           >
             {params.getValue('name')}
           </Link>
           <Typography color='textSecondary' variant='body2'>
-            {params.getValue('email')}
+            {params.row.email}
           </Typography>
         </Box>
       </Box>
@@ -39,7 +39,7 @@ const columns = [
     field: 'birthdate',
     flex: 0.5,
     valueFormatter: (params) =>
-      differenceInCalendarYears(Date.now(), parseISO(params.value)),
+      differenceInCalendarYears(Date.now(), params.value.toDate()),
   },
   { headerName: 'Plano', field: 'plan', flex: 1 },
   { headerName: 'Ações', field: 'actions', flex: 1 },

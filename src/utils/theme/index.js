@@ -6,6 +6,9 @@ import { lightShadows, darkShadows } from './shadows';
 
 const baseOptions = {
   direction: 'ltr',
+  shape: {
+    borderRadius: 16,
+  },
   components: {
     MuiAvatar: {
       styleOverrides: {
@@ -263,16 +266,7 @@ export const createTheme = (config = {}) => {
     themeOptions = themesOptions[THEMES.LIGHT];
   }
 
-  let theme = createMuiTheme(
-    merge({}, baseOptions, themeOptions, {
-      ...(config.roundedCorners && {
-        shape: {
-          borderRadius: 16,
-        },
-      }),
-    }),
-    ptBR
-  );
+  let theme = createMuiTheme(merge({}, baseOptions, themeOptions), ptBR);
 
   if (config.responsiveFontSizes) {
     theme = responsiveFontSizes(theme);

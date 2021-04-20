@@ -1,16 +1,33 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Wrapper, Header, Breadcrumbs, Table } from 'components';
 import { UserAdd } from 'components/icons';
+import firebase from 'utils/lib/firebase';
 import columns from './columns';
 
-const rows = [
-  { id: 1, name: 'João Ribeiro', email: 'joao@mail.com' },
-  { id: 2, name: 'Maria Souza', email: 'maria@mail.com' },
-  { id: 3, name: 'Daniel Santos', email: 'daniel@mail.com' },
-];
-
 function AlunosList() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const arr = [];
+      const query = await firebase
+        .firestore()
+        .collection('Users')
+        .where('role', '==', 'Aluno')
+        .get();
+      query.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
+      setData(arr);
+      setLoading(false);
+    };
+    getData();
+  }, []);
+
+  console.log(data);
+
   return (
     <Wrapper title='Alunos | ShoutMotion'>
       <Header
@@ -33,7 +50,7 @@ function AlunosList() {
           ]}
         />
       </Header>
-      <Table rows={rows} columns={columns} rowHeight={75} />
+      <Table rows={data} columns={columns} rowHeight={75} loading={loading} />
     </Wrapper>
   );
 }

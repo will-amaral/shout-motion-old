@@ -118,14 +118,14 @@ function Table(props) {
   const classes = useStyles();
 
   return (
-    <Card sx={{ maxHeight: '50vh', width: '100%' }}>
+    <Card sx={{ maxHeight: '60vh', width: '100%' }}>
       <DataGrid
         className={classes.root}
         localeText={localeText}
         autoHeight
         rows={rows}
         columns={columns}
-        checkboxSelection
+        pageSize={5}
         {...rest}
       />
     </Card>

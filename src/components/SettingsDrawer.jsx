@@ -17,7 +17,6 @@ import { useSettings } from 'hooks';
 const getValues = (settings) => ({
   compact: settings.compact,
   responsiveFontSizes: settings.responsiveFontSizes,
-  roundedCorners: settings.roundedCorners,
   theme: settings.theme,
 });
 
@@ -152,32 +151,6 @@ const SettingsDrawer = () => {
                 Compacto
                 <Typography color='textSecondary' component='p' variant='caption'>
                   Ajusta o tamanho da tela
-                </Typography>
-              </div>
-            }
-          />
-        </Box>
-        <Box
-          sx={{
-            mt: 2,
-            px: 1.5,
-          }}
-        >
-          <FormControlLabel
-            control={
-              <Switch
-                checked={values.roundedCorners}
-                color='primary'
-                edge='start'
-                name='roundedCorners'
-                onChange={(event) => handleChange('roundedCorners', event.target.checked)}
-              />
-            }
-            label={
-              <div>
-                Bordas arredondadas
-                <Typography color='textSecondary' component='p' variant='caption'>
-                  Aumenta a curvatura das bordas
                 </Typography>
               </div>
             }
