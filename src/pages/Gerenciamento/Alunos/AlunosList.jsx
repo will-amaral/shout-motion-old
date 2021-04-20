@@ -22,8 +22,6 @@ function AlunosList() {
     getData();
   }, []);
 
-  console.log(data);
-
   return (
     <Wrapper title='Alunos | ShoutMotion'>
       <Header

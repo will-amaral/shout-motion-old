@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import NProgress from 'nprogress';
-import { Box } from '@material-ui/core';
+import { Box, LinearProgress } from '@material-ui/core';
 
 function LoadingScreen() {
   useEffect(() => {
@@ -17,7 +17,9 @@ function LoadingScreen() {
         backgroundColor: 'background.paper',
         minHeight: '100%',
       }}
-    />
+    >
+      <LinearProgress />
+    </Box>
   );
 }
 

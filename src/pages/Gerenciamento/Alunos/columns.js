@@ -1,14 +1,14 @@
-import { Avatar, Box, Typography, Link } from '@material-ui/core';
+import { Avatar, Box, Typography, Link, IconButton } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
-import { differenceInCalendarYears } from 'date-fns';
 import { Label } from 'components';
+import { PencilAlt, ArrowRight } from 'components/icons';
 
 const colorMap = {
-  1: '#80CEE1',
-  2: '#fff176',
-  3: '#D97740',
-  4: '#C43D52',
-  5: '#782A60',
+  1: '#00DA9C',
+  2: '#F46B45',
+  3: '#3772FF',
+  4: '#FF37A6',
+  5: '#42033D',
 };
 
 const columns = [
@@ -44,15 +44,6 @@ const columns = [
     ),
   },
   {
-    headerName: 'Idade',
-    field: 'birthdate',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    valueFormatter: (params) =>
-      differenceInCalendarYears(Date.now(), params.value.toDate()),
-  },
-  {
     headerName: 'Plano',
     field: 'tier',
     headerAlign: 'center',
@@ -66,10 +57,20 @@ const columns = [
   },
   {
     headerName: 'Ações',
-    field: 'actions',
+    field: 'id',
     flex: 1,
     headerAlign: 'center',
     align: 'center',
+    renderCell: (params) => (
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <IconButton component={RouterLink} to={params.row.id + '/editar'}>
+          <PencilAlt />
+        </IconButton>
+        <IconButton component={RouterLink} to={params.row.id}>
+          <ArrowRight />
+        </IconButton>
+      </Box>
+    ),
   },
 ];
 

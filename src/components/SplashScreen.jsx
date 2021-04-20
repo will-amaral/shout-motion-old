@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import Logo from './Logo';
 
 const SplashScreen = () => (
@@ -19,6 +19,7 @@ const SplashScreen = () => (
     }}
   >
     <Logo />
+    <CircularProgress sx={{ mt: 3 }} />
   </Box>
 );
 

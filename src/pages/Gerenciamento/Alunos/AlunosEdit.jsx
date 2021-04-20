@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Button,
   Card,
@@ -9,15 +10,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/lab';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
-import { Wrapper, Header, Breadcrumbs } from 'components';
+import { Wrapper, Header, Breadcrumbs, LoadingScreen } from 'components';
 import { db } from 'utils/lib/firebase';
 
-function AlunosNew() {
+function AlunosEdit() {
   const { enqueueSnackbar } = useSnackbar();
+  const [aluno, setAluno] = useState();
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
   const navigate = useNavigate();
   const options = [
     'Homem Cis',
@@ -30,14 +34,14 @@ function AlunosNew() {
 
   const tiers = [1, 2, 3, 4, 5];
 
-  const initialValues = {
-    address: '',
-    birthdate: new Date(),
-    cpf: '',
-    email: '',
-    gender: 0,
-    name: '',
-    tier: 0,
+  const initialValues = aluno && {
+    address: aluno.address,
+    birthdate: aluno.birthdate.toDate(),
+    cpf: aluno.cpf,
+    email: aluno.email,
+    gender: aluno.gender,
+    name: aluno.name,
+    tier: aluno.tier,
   };
 
   const validationSchema = Yup.object().shape({
@@ -52,20 +56,17 @@ function AlunosNew() {
 
   async function onSubmit(values, { resetForm, setErrors, setStatus, setSubmitting }) {
     try {
-      db.collection('Users').add({
-        ...values,
-        role: 'Aluno',
-      });
+      db.collection('Users').doc(id).update(values);
       resetForm();
       setSubmitting(false);
-      enqueueSnackbar('O novo aluno foi adicionado com sucesso', {
+      enqueueSnackbar('Dados atualizados com sucesso', {
         anchorOrigin: {
           horizontal: 'right',
           vertical: 'top',
         },
         variant: 'success',
       });
-      navigate('/alunos');
+      navigate('../');
     } catch (error) {
       console.error(error);
       setStatus({ success: false });
@@ -81,20 +82,40 @@ function AlunosNew() {
     }
   }
 
+  useEffect(() => {
+    const fetchStudent = async () => {
+      setLoading(true);
+      try {
+        const doc = await db.collection('Users').doc(id).get();
+        setAluno(doc.data());
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStudent();
+  }, [id]);
+
+  if (loading) return <LoadingScreen />;
+
+  if (!loading && !aluno) return null;
+
   return (
-    <Wrapper title='Novo Aluno | ShoutMotion'>
-      <Header title='Novo Aluno' overline='Alunos'>
+    <Wrapper title='Editar Aluno | ShoutMotion'>
+      <Header title={aluno.name} overline='Editar Aluno'>
         <Breadcrumbs
           paths={[
             { to: '/home', text: 'Home' },
             { to: '/alunos', text: 'Alunos' },
-            { to: '/alunos/novo', text: 'Novo' },
+            { to: `/alunos/${id}`, text: aluno.name },
+            { to: `/alunos/${id}/editar`, text: 'Editar' },
           ]}
         />
       </Header>
       <Card sx={{ p: 3 }}>
         <Typography variant='h6' sx={{ mb: 3 }}>
-          Preencha o formulário abaixo:
+          Atualize o cadastro
         </Typography>
         <Formik
           initialValues={initialValues}
@@ -234,7 +255,7 @@ function AlunosNew() {
                 sx={{ mt: 3 }}
                 startIcon={isSubmitting && <CircularProgress size={15} />}
               >
-                Adicionar Aluno
+                Salvar Alterações
               </Button>
             </form>
           )}
@@ -244,4 +265,4 @@ function AlunosNew() {
   );
 }
 
-export default AlunosNew;
+export default AlunosEdit;

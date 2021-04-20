@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { AuthGuard, GuestGuard, Loadable } from 'components';
 import Dashboard from 'components/layout/Dashboard';
 
@@ -10,6 +10,9 @@ const Home = Loadable(lazy(() => import('pages/Geral/Home')));
 // Dashboard Routes - Gerenciamento
 const Alunos = Loadable(lazy(() => import('pages/Gerenciamento/Alunos')));
 const AlunosNovo = Loadable(lazy(() => import('pages/Gerenciamento/Alunos/AlunosNew')));
+const AlunosEditar = Loadable(
+  lazy(() => import('pages/Gerenciamento/Alunos/AlunosEdit'))
+);
 //Dashboard Routes - outros
 const Blank = Loadable(lazy(() => import('pages/Blank')));
 
@@ -40,11 +43,21 @@ const routes = [
       },
       {
         path: 'alunos',
-        element: <Alunos />,
-      },
-      {
-        path: 'alunos/novo',
-        element: <AlunosNovo />,
+        element: <Outlet />,
+        children: [
+          {
+            path: '/',
+            element: <Alunos />,
+          },
+          {
+            path: 'novo',
+            element: <AlunosNovo />,
+          },
+          {
+            path: ':id/editar',
+            element: <AlunosEditar />,
+          },
+        ],
       },
       {
         path: '*',
