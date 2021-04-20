@@ -4,6 +4,7 @@ export { default as Card } from './Card';
 export { default as GlobalStyles } from './GlobalStyles';
 export { default as GuestGuard } from './GuestGuard';
 export { default as Header } from './Header';
+export { default as Label } from './Label';
 export { default as Loadable } from './Loadable';
 export { default as LoadingScreen } from './LoadingScreen';
 export { default as Logo } from './Logo';

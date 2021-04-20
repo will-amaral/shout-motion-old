@@ -1,6 +1,15 @@
 import { Avatar, Box, Typography, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { differenceInCalendarYears } from 'date-fns';
+import { Label } from 'components';
+
+const colorMap = {
+  1: '#80CEE1',
+  2: '#fff176',
+  3: '#D97740',
+  4: '#C43D52',
+  5: '#782A60',
+};
 
 const columns = [
   {
@@ -37,12 +46,31 @@ const columns = [
   {
     headerName: 'Idade',
     field: 'birthdate',
-    flex: 0.5,
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
     valueFormatter: (params) =>
       differenceInCalendarYears(Date.now(), params.value.toDate()),
   },
-  { headerName: 'Plano', field: 'plan', flex: 1 },
-  { headerName: 'Ações', field: 'actions', flex: 1 },
+  {
+    headerName: 'Plano',
+    field: 'tier',
+    headerAlign: 'center',
+    align: 'center',
+    flex: 1,
+    renderCell: (params) => (
+      <Label color={colorMap[params.getValue('tier')]}>
+        Tier {params.getValue('tier')}
+      </Label>
+    ),
+  },
+  {
+    headerName: 'Ações',
+    field: 'actions',
+    flex: 1,
+    headerAlign: 'center',
+    align: 'center',
+  },
 ];
 
 export default columns;

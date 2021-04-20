@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Wrapper, Header, Breadcrumbs, Table } from 'components';
 import { UserAdd } from 'components/icons';
-import firebase from 'utils/lib/firebase';
+import { db } from 'utils/lib/firebase';
 import columns from './columns';
 
 function AlunosList() {
@@ -14,11 +14,7 @@ function AlunosList() {
     const getData = async () => {
       setLoading(true);
       const arr = [];
-      const query = await firebase
-        .firestore()
-        .collection('Users')
-        .where('role', '==', 'Aluno')
-        .get();
+      const query = await db.collection('Users').where('role', '==', 'Aluno').get();
       query.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
       setData(arr);
       setLoading(false);

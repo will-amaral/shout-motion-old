@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 import { Wrapper, Header, Breadcrumbs } from 'components';
-import firebase from 'utils/lib/firebase';
+import { db } from 'utils/lib/firebase';
 
 function AlunosNew() {
   const { enqueueSnackbar } = useSnackbar();
@@ -48,7 +48,6 @@ function AlunosNew() {
 
   async function onSubmit(values, { resetForm, setErrors, setStatus, setSubmitting }) {
     try {
-      const db = firebase.firestore();
       db.collection('Users').add({
         ...values,
         role: 'Aluno',
