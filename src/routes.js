@@ -13,6 +13,9 @@ const AlunosNovo = Loadable(lazy(() => import('pages/Gerenciamento/Alunos/Alunos
 const AlunosEditar = Loadable(
   lazy(() => import('pages/Gerenciamento/Alunos/AlunosEdit'))
 );
+const AlunosDetalhe = Loadable(
+  lazy(() => import('pages/Gerenciamento/Alunos/AlunosDetail'))
+);
 //Dashboard Routes - outros
 const Blank = Loadable(lazy(() => import('pages/Blank')));
 
@@ -52,6 +55,10 @@ const routes = [
           {
             path: 'novo',
             element: <AlunosNovo />,
+          },
+          {
+            path: ':id',
+            element: <AlunosDetalhe />,
           },
           {
             path: ':id/editar',

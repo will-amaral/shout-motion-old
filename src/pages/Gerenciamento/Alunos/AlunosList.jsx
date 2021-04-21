@@ -14,7 +14,11 @@ function AlunosList() {
     const getData = async () => {
       setLoading(true);
       const arr = [];
-      const query = await db.collection('Users').where('role', '==', 'Aluno').get();
+      const query = await db
+        .collection('Users')
+        .where('role', '==', 'Aluno')
+        .where('isActive', '==', true)
+        .get();
       query.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
       setData(arr);
       setLoading(false);
