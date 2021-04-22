@@ -41,7 +41,7 @@ export const AuthProvider = (props) => {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const doc = await firebase.firestore().collection('Users').doc(user.uid).get();
-          const { address, birthdate, cpf, gender, name, role } = doc.data();
+          const { address, birthdate, cpf, gender, name, role, msgToken } = doc.data();
 
           dispatch({
             type: 'AUTH_STATE_CHANGED',
@@ -56,7 +56,8 @@ export const AuthProvider = (props) => {
                 cpf,
                 gender,
                 role,
-                birtdate: new Date(birthdate.seconds),
+                birthdate: birthdate.toDate(),
+                msgToken,
               },
             },
           });

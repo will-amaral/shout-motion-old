@@ -9,7 +9,7 @@ const tabs = [
   { label: 'Geral', value: 'overview' },
   { label: 'Medidas', value: 'measurements' },
   { label: 'Fichas', value: 'training' },
-  { label: 'Performance', value: 'health-reports' },
+  { label: 'Relatórios', value: 'health-reports' },
 ];
 
 function AlunosDetail() {

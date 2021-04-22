@@ -6,6 +6,7 @@ import { Menu } from 'components/icons';
 import { Logo } from 'components';
 import { useIsDark } from 'hooks';
 import AccountPopover from './AccountPopover';
+import NotificationsPopover from './NotificationsPopover';
 
 const DashboardNavbarRoot = experimentalStyled(AppBar)(({ theme }) => ({
   ...(theme.palette.mode === 'light' && {
@@ -50,6 +51,9 @@ function Navbar(props) {
             ml: 2,
           }}
         />
+        <Box sx={{ ml: 2 }}>
+          <NotificationsPopover />
+        </Box>
         <Box sx={{ ml: 2 }}>
           <AccountPopover />
         </Box>

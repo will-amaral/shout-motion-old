@@ -1,6 +1,6 @@
 import createSvgIcon from '@material-ui/core/utils/createSvgIcon';
 
-const ChartAlt = createSvgIcon(
+const Chat = createSvgIcon(
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
     <path
       fillRule='evenodd'
@@ -8,7 +8,7 @@ const ChartAlt = createSvgIcon(
       clipRule='evenodd'
     />
   </svg>,
-  'ChartAlt'
+  'Chat'
 );
 
-export default ChartAlt;
+export default Chat;

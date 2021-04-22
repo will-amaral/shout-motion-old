@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core/styles';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import { msg } from 'utils/lib/firebase';
 
 const LayoutRoot = experimentalStyled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -38,6 +39,12 @@ const LayoutContent = experimentalStyled('div')({
 
 function Dashboard() {
   const [isSidebarMobileOpen, setIsSidebarMobileOpen] = useState(false);
+
+  useEffect(() => {
+    msg.onMessage((payload) => {
+      console.log('Message received: ', payload);
+    });
+  }, []);
 
   return (
     <LayoutRoot>

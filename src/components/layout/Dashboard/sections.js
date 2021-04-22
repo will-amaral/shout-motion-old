@@ -3,7 +3,7 @@ import {
   ChartPie,
   User,
   Users,
-  AcademicCap,
+  Dumbbell,
   Calendar,
   CurrencyDollar,
 } from 'components/icons';
@@ -38,13 +38,13 @@ const sections = [
         icon: <Users />,
       },
       {
-        title: 'Professores',
-        path: '/professores',
-        icon: <AcademicCap />,
+        title: 'Exercícios',
+        path: '/exercicios',
+        icon: <Dumbbell />,
       },
       {
-        title: 'Agendamento de Aulas',
-        path: '/agendamento',
+        title: 'Agenda',
+        path: '/agenda',
         icon: <Calendar />,
       },
       {

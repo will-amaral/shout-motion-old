@@ -10,6 +10,7 @@ import StyledEngineProvider from '@material-ui/core/StyledEngineProvider';
 import App from './App';
 import { AuthProvider } from 'contexts/FirebaseContext';
 import { SettingsProvider } from 'contexts/SettingsContext';
+import { NotificationProvider } from 'contexts/NotificationContext';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +20,9 @@ ReactDOM.render(
           <SettingsProvider>
             <BrowserRouter>
               <AuthProvider>
-                <App />
+                <NotificationProvider>
+                  <App />
+                </NotificationProvider>
               </AuthProvider>
             </BrowserRouter>
           </SettingsProvider>
