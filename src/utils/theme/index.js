@@ -116,6 +116,10 @@ const themesOptions = {
         contrastText: '#ffffff',
         main: '#00DA9C',
       },
+      secondary: {
+        contrastText: '#ffffff',
+        main: '#f46b45',
+      },
       success: {
         contrastText: '#ffffff',
         main: '#4caf50',
@@ -155,6 +159,10 @@ const themesOptions = {
       primary: {
         contrastText: '#ffffff',
         main: '#00DA9C',
+      },
+      secondary: {
+        contrastText: '#ffffff',
+        main: '#f46b45',
       },
       success: {
         contrastText: '#ffffff',
@@ -201,6 +209,10 @@ const themesOptions = {
         contrastText: '#ffffff',
         main: '#f46b45',
       },
+      secondary: {
+        contrastText: '#ffffff',
+        main: '#00DA9C',
+      },
       success: {
         contrastText: '#ffffff',
         main: '#4caf50',
@@ -240,6 +252,10 @@ const themesOptions = {
       primary: {
         contrastText: '#ffffff',
         main: '#f46b45',
+      },
+      secondary: {
+        contrastText: '#ffffff',
+        main: '#00DA9C',
       },
       success: {
         contrastText: '#ffffff',

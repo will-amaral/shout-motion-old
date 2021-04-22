@@ -96,14 +96,14 @@ const AccountPopover = () => {
         </Box>
         <Divider />
         <Box sx={{ mt: 2 }}>
-          <MenuItem component={RouterLink} to='/perfil'>
+          <MenuItem component={RouterLink} to='/conta'>
             <ListItemIcon>
               <User fontSize='small' />
             </ListItemIcon>
             <ListItemText
               primary={
                 <Typography color='textPrimary' variant='subtitle2'>
-                  Perfil
+                  Conta
                 </Typography>
               }
             />

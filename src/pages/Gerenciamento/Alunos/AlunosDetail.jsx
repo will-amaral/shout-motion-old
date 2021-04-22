@@ -22,6 +22,14 @@ function AlunosDetail() {
     setCurrentTab(value);
   };
 
+  const deleteStudent = () => {
+    db.collection('Users')
+      .doc(id)
+      .update({ active: false })
+      .then(() => Promise.resolve())
+      .catch((err) => Promise.reject(err));
+  };
+
   useEffect(() => {
     const fetchStudent = async () => {
       setLoading(true);
@@ -48,11 +56,12 @@ function AlunosDetail() {
         action={
           <Box sx={{ m: -1 }}>
             <ConfirmDialog
-              title='Confirmar'
-              description='Tem certeza?'
+              title='Excluir aluno'
+              description='Tem certeza de que deseja excluir este aluno?'
+              confirmAction={deleteStudent}
               component={({ onClick }) => (
                 <Button
-                  color='secondary'
+                  color='error'
                   startIcon={<Trash fontSize='small' />}
                   sx={{ m: 1 }}
                   variant='text'

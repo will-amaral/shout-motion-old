@@ -54,7 +54,7 @@ function ConfirmDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color='error' variant='contained' onClick={handleClose}>
+          <Button color='error' onClick={handleClose}>
             {cancelText}
           </Button>
           <Button
@@ -73,7 +73,7 @@ function ConfirmDialog(props) {
 }
 
 ConfirmDialog.propTypes = {
-  children: PropTypes.node,
+  component: PropTypes.node,
   title: PropTypes.string,
   description: PropTypes.string,
   confirmText: PropTypes.string,

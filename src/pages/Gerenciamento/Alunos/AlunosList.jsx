@@ -17,7 +17,7 @@ function AlunosList() {
       const query = await db
         .collection('Users')
         .where('role', '==', 'Aluno')
-        .where('isActive', '==', true)
+        .where('active', '==', true)
         .get();
       query.forEach((doc) => arr.push({ id: doc.id, ...doc.data() }));
       setData(arr);
