@@ -1,3 +1,4 @@
+export { default as Alert } from './Alert';
 export { default as AuthGuard } from './AuthGuard';
 export { default as Breadcrumbs } from './Breadcrumbs';
 export { default as Card } from './Card';

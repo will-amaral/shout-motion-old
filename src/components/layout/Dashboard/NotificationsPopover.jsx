@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemAvatar,
@@ -14,17 +13,31 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
+import { Alert } from 'components';
 import { Bell, Chat } from 'components/icons';
+import { useSnackbar } from 'notistack';
 import { useNotification } from 'hooks';
 
 function NotificationsPopover() {
-  const { notifications } = useNotification();
-  console.log(notifications);
+  const { notifications, markAllAsRead, markAsRead } = useNotification();
+  const { enqueueSnackbar } = useSnackbar();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const openNotification = (notification) => {
+    const { title, description, id } = notification;
+    enqueueSnackbar('', {
+      content: <Alert title={title} description={description} />,
+      anchorOrigin: {
+        horizontal: 'center',
+        vertical: 'top',
+      },
+    });
+    markAsRead(id);
+  };
 
   return (
     <>
@@ -63,7 +76,12 @@ function NotificationsPopover() {
             <List disablePadding>
               {notifications.map((notification) => {
                 return (
-                  <ListItem divider key={notification.id}>
+                  <ListItem
+                    divider
+                    key={notification.id}
+                    button
+                    onClick={() => openNotification(notification)}
+                  >
                     <ListItemAvatar>
                       <Avatar
                         sx={{
@@ -75,16 +93,7 @@ function NotificationsPopover() {
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                      primary={
-                        <Link
-                          color='textPrimary'
-                          sx={{ cursor: 'pointer' }}
-                          underline='none'
-                          variant='subtitle2'
-                        >
-                          {notification.title}
-                        </Link>
-                      }
+                      primary={notification.title}
                       secondary={notification.description}
                     />
                   </ListItem>
@@ -98,7 +107,7 @@ function NotificationsPopover() {
                 p: 1,
               }}
             >
-              <Button color='primary' size='small' variant='text'>
+              <Button color='primary' size='small' variant='text' onClick={markAllAsRead}>
                 Marcar todas como lidas
               </Button>
             </Box>
