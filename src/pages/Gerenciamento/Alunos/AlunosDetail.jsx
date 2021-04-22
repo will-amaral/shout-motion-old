@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
-import { Wrapper, Header, Breadcrumbs, LoadingScreen } from 'components';
+import { Wrapper, Header, Breadcrumbs, LoadingScreen, ConfirmDialog } from 'components';
 import { PencilAlt, Trash } from 'components/icons';
 import { db } from 'utils/lib/firebase';
 
@@ -47,19 +47,29 @@ function AlunosDetail() {
         title={aluno.name}
         action={
           <Box sx={{ m: -1 }}>
-            <Button
-              color='secondary'
-              startIcon={<Trash fontSize='small' />}
-              sx={{ m: 1 }}
-              variant='text'
-            >
-              Excluir
-            </Button>
+            <ConfirmDialog
+              title='Confirmar'
+              description='Tem certeza?'
+              component={({ onClick }) => (
+                <Button
+                  color='secondary'
+                  startIcon={<Trash fontSize='small' />}
+                  sx={{ m: 1 }}
+                  variant='text'
+                  onClick={onClick}
+                >
+                  Excluir
+                </Button>
+              )}
+            />
+
             <Button
               color='primary'
               startIcon={<PencilAlt fontSize='small' />}
               sx={{ m: 1 }}
               variant='contained'
+              component={RouterLink}
+              to='editar'
             >
               Editar Aluno
             </Button>

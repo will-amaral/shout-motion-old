@@ -9,4 +9,6 @@ if (!firebase.apps.length) {
 
 export const db = firebase.firestore();
 
+export const Timestamp = firebase.firestore.Timestamp;
+
 export default firebase;

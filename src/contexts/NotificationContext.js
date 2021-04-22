@@ -1,6 +1,8 @@
 import { createContext, useEffect, useReducer } from 'react';
+import { useSnackbar } from 'notistack';
+import { Alert } from 'components';
 import PropTypes from 'prop-types';
-import { db } from 'utils/lib/firebase';
+import { db, Timestamp } from 'utils/lib/firebase';
 
 const initialState = {
   notifications: [],
@@ -26,6 +28,30 @@ const NotificationContext = createContext({
 export const NotificationProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(
+    () =>
+      db
+        .collection('Notifications')
+        .where('isUnread', '==', true)
+        .where('createdAt', '>=', Timestamp.fromDate(new Date()))
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            if (change.type === 'added') {
+              const doc = change.doc.data();
+              enqueueSnackbar('', {
+                content: <Alert title={doc.title} description={doc.description} />,
+                anchorOrigin: {
+                  horizontal: 'center',
+                  vertical: 'top',
+                },
+              });
+            }
+          });
+        }),
+    [dispatch, enqueueSnackbar]
+  );
 
   useEffect(
     () =>

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Alert as MuiAlert, AlertTitle } from '@material-ui/lab';
+import { Alert as MuiAlert, AlertTitle } from '@material-ui/core';
 
 const Alert = forwardRef((props, ref) => {
   const { title, description } = props;

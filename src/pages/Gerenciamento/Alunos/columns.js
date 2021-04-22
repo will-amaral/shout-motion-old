@@ -3,14 +3,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Label } from 'components';
 import { PencilAlt, ArrowRight } from 'components/icons';
 
-const colorMap = {
-  1: '#00DA9C',
-  2: '#F46B45',
-  3: '#3772FF',
-  4: '#FF37A6',
-  5: '#42033D',
-};
-
 const columns = [
   {
     headerName: 'Nome ',
@@ -49,11 +41,7 @@ const columns = [
     headerAlign: 'center',
     align: 'center',
     flex: 1,
-    renderCell: (params) => (
-      <Label color={colorMap[params.getValue('tier')]}>
-        Tier {params.getValue('tier')}
-      </Label>
-    ),
+    renderCell: (params) => <Label>Tier {params.getValue('tier')}</Label>,
   },
   {
     headerName: 'Ações',

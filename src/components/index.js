@@ -2,6 +2,7 @@ export { default as Alert } from './Alert';
 export { default as AuthGuard } from './AuthGuard';
 export { default as Breadcrumbs } from './Breadcrumbs';
 export { default as Card } from './Card';
+export { default as ConfirmDialog } from './ConfirmDialog';
 export { default as GlobalStyles } from './GlobalStyles';
 export { default as GuestGuard } from './GuestGuard';
 export { default as Header } from './Header';
