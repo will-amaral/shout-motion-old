@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
 import { Card, Typography } from '@material-ui/core';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { Wrapper, Header, Breadcrumbs, LoadingScreen } from 'components';
+import Error from 'pages/Status/Error';
 import { db } from 'utils/lib/firebase';
 import AlunosForm from './AlunosForm';
 
 function AlunosEdit() {
   const { enqueueSnackbar } = useSnackbar();
-  const [aluno, setAluno] = useState();
-  const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const userRef = db.doc(`Users/${id}`);
+  const [aluno, loading, error] = useDocumentData(userRef);
   const navigate = useNavigate();
 
   const tiers = [1, 2, 3, 4, 5];
@@ -38,7 +39,7 @@ function AlunosEdit() {
 
   async function onSubmit(values, { resetForm, setErrors, setStatus, setSubmitting }) {
     try {
-      db.collection('Users').doc(id).update(values);
+      userRef.update(values);
       resetForm();
       setSubmitting(false);
       enqueueSnackbar('Dados atualizados com sucesso', {
@@ -64,24 +65,9 @@ function AlunosEdit() {
     }
   }
 
-  useEffect(() => {
-    const fetchStudent = async () => {
-      setLoading(true);
-      try {
-        const doc = await db.collection('Users').doc(id).get();
-        setAluno(doc.data());
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStudent();
-  }, [id]);
-
   if (loading) return <LoadingScreen />;
 
-  if (!loading && !aluno) return null;
+  if ((!loading && !aluno) || error) return <Error />;
 
   return (
     <Wrapper title='Editar Aluno | ShoutMotion'>

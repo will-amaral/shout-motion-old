@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 function HealthReports(props) {
-  return <div></div>;
+  return <div>Relatórios de saúde</div>;
 }
 
 HealthReports.propTypes = {};

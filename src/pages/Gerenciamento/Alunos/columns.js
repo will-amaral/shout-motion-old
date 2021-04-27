@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography, Link, IconButton } from '@material-ui/core';
+import { Avatar, Box, Typography, Link, IconButton, Tooltip } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import { Label } from 'components';
 import { PencilAlt, ArrowRight } from 'components/icons';
@@ -51,12 +51,16 @@ const columns = [
     align: 'center',
     renderCell: (params) => (
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconButton component={RouterLink} to={params.row.id + '/editar'}>
-          <PencilAlt />
-        </IconButton>
-        <IconButton component={RouterLink} to={params.row.id}>
-          <ArrowRight />
-        </IconButton>
+        <Tooltip title='Editar dados de cadastro'>
+          <IconButton component={RouterLink} to={params.row.id + '/editar'}>
+            <PencilAlt />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title='Ver e atualizar o perfil completo'>
+          <IconButton component={RouterLink} to={params.row.id}>
+            <ArrowRight />
+          </IconButton>
+        </Tooltip>
       </Box>
     ),
   },

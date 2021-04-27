@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 function Training(props) {
-  return <div></div>;
+  return <div>Histórico de fichas de treinamento</div>;
 }
 
 Training.propTypes = {};

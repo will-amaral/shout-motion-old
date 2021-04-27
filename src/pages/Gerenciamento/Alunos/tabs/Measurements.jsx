@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 function Measurements(props) {
-  return <div></div>;
+  return <div>Medidas corporais</div>;
 }
 
 Measurements.propTypes = {};

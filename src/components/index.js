@@ -16,4 +16,5 @@ export { default as Scrollbar } from './Scrollbar';
 export { default as SettingsDrawer } from './SettingsDrawer';
 export { default as SplashScreen } from './SplashScreen';
 export { default as Table } from './Table';
+export { default as TabNavigation } from './TabNavigation';
 export { default as Wrapper } from './Wrapper';

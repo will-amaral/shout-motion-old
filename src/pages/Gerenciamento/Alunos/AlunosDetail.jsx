@@ -1,88 +1,76 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
-import { Box, Button, Divider, Tab, Tabs } from '@material-ui/core';
-import { Wrapper, Header, Breadcrumbs, LoadingScreen, ConfirmDialog } from 'components';
+import { Box, Button, Alert } from '@material-ui/core';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
+import {
+  Wrapper,
+  Header,
+  Breadcrumbs,
+  LoadingScreen,
+  ConfirmDialog,
+  TabNavigation,
+} from 'components';
+import Error from 'pages/Status/Error';
 import { PencilAlt, Trash } from 'components/icons';
 import { db } from 'utils/lib/firebase';
-
-const tabs = [
-  { label: 'Geral', value: 'overview' },
-  { label: 'Medidas', value: 'measurements' },
-  { label: 'Fichas', value: 'training' },
-  { label: 'Relatórios', value: 'health-reports' },
-];
+import tabs from './tabs';
 
 function AlunosDetail() {
-  const [aluno, setAluno] = useState();
-  const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState('overview');
   const { id } = useParams();
+  const userRef = db.doc(`Users/${id}`);
+  const [aluno, loading, error] = useDocumentData(userRef);
 
-  const handleTabsChange = (_, value) => {
-    setCurrentTab(value);
+  const toggleStudent = () => {
+    userRef.update({ active: !aluno.active });
   };
-
-  const deleteStudent = () => {
-    db.collection('Users')
-      .doc(id)
-      .update({ active: false })
-      .then(() => Promise.resolve())
-      .catch((err) => Promise.reject(err));
-  };
-
-  useEffect(() => {
-    const fetchStudent = async () => {
-      setLoading(true);
-      try {
-        const doc = await db.collection('Users').doc(id).get();
-        setAluno(doc.data());
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStudent();
-  }, [id]);
 
   if (loading) return <LoadingScreen />;
 
-  if (!loading && !aluno) return null;
+  if ((!loading && !aluno) || error) return <Error />;
 
   return (
-    <Wrapper title='Detalhes do Aluno | ShoutMotion'>
+    <Wrapper title='Detalhes do Aluno | ShoutMotion' loading={loading}>
+      {!aluno.active && (
+        <Alert variant='outlined' severity='error' sx={{ mb: 2 }}>
+          ALUNO DESATIVADO: Clique no botão REATIVAR CADASTRO para restaurar o acesso
+        </Alert>
+      )}
       <Header
         title={aluno.name}
         action={
-          <Box sx={{ m: -1 }}>
-            <ConfirmDialog
-              title='Excluir aluno'
-              description='Tem certeza de que deseja excluir este aluno?'
-              confirmAction={deleteStudent}
-              component={({ onClick }) => (
-                <Button
-                  color='error'
-                  startIcon={<Trash fontSize='small' />}
-                  sx={{ m: 1 }}
-                  variant='text'
-                  onClick={onClick}
-                >
-                  Excluir
-                </Button>
-              )}
-            />
-
-            <Button
-              color='primary'
-              startIcon={<PencilAlt fontSize='small' />}
-              sx={{ m: 1 }}
-              variant='contained'
-              component={RouterLink}
-              to='editar'
-            >
-              Editar Aluno
+          aluno.active ? (
+            <Box sx={{ m: -1 }}>
+              <ConfirmDialog
+                title='Excluir aluno'
+                description='Tem certeza de que deseja excluir este aluno?'
+                confirmAction={toggleStudent}
+                component={({ onClick }) => (
+                  <Button
+                    color='error'
+                    startIcon={<Trash fontSize='small' />}
+                    sx={{ m: 1 }}
+                    variant='text'
+                    onClick={onClick}
+                  >
+                    Excluir
+                  </Button>
+                )}
+              />
+              <Button
+                color='primary'
+                startIcon={<PencilAlt fontSize='small' />}
+                sx={{ m: 1 }}
+                variant='contained'
+                component={RouterLink}
+                to='editar'
+              >
+                Editar Dados de Cadastro
+              </Button>
+            </Box>
+          ) : (
+            <Button color='primary' variant='contained' onClick={toggleStudent}>
+              Reativar cadastro
             </Button>
-          </Box>
+          )
         }
       >
         <Breadcrumbs
@@ -93,25 +81,7 @@ function AlunosDetail() {
           ]}
         />
       </Header>
-      <Tabs
-        indicatorColor='primary'
-        variant='scrollable'
-        scrollButtons='auto'
-        textColor='primary'
-        value={currentTab}
-        onChange={handleTabsChange}
-      >
-        {tabs.map((tab) => (
-          <Tab key={tab.value} label={tab.label} value={tab.value} />
-        ))}
-      </Tabs>
-      <Divider />
-      <Box sx={{ mt: 3, color: 'text.primary' }}>
-        {currentTab === 'overview' && <div>Informações Gerais</div>}
-        {currentTab === 'measurements' && <div>Medidas corporais</div>}
-        {currentTab === 'training' && <div>Histórico de fichas de treinamento</div>}
-        {currentTab === 'health-reports' && <div>Relatórios de saúde</div>}
-      </Box>
+      <TabNavigation tabs={tabs} />
     </Wrapper>
   );
 }

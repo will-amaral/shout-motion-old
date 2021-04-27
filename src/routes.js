@@ -17,7 +17,7 @@ const AlunosDetalhe = Loadable(
   lazy(() => import('pages/Gerenciamento/Alunos/AlunosDetail'))
 );
 //Dashboard Routes - outros
-const Blank = Loadable(lazy(() => import('pages/Blank')));
+const Blank = Loadable(lazy(() => import('pages/Status/Blank')));
 
 const routes = [
   {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 function Overview(props) {
-  return <div></div>;
+  return <div>Informações Gerais</div>;
 }
 
 Overview.propTypes = {};
