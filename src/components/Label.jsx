@@ -8,8 +8,9 @@ function Label(props) {
       variant='overline'
       sx={{
         color: '#fff',
-        backgroundColor: 'primary.main',
-        padding: '0 1rem',
+        backgroundColor: 'secondary.main',
+        py: 0.2,
+        px: 2,
         borderRadius: 0.5,
         fontWeight: '700',
       }}
