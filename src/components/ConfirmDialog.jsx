@@ -73,7 +73,7 @@ function ConfirmDialog(props) {
 }
 
 ConfirmDialog.propTypes = {
-  component: PropTypes.node,
+  component: PropTypes.any,
   title: PropTypes.string,
   description: PropTypes.string,
   confirmText: PropTypes.string,

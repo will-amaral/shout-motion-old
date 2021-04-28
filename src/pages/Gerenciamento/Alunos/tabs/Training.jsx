@@ -4,6 +4,8 @@ function Training(props) {
   return <div>Histórico de fichas de treinamento</div>;
 }
 
-Training.propTypes = {};
+Training.propTypes = {
+  aluno: PropTypes.object,
+};
 
 export default Training;

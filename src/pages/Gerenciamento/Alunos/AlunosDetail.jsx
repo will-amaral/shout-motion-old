@@ -81,7 +81,7 @@ function AlunosDetail() {
           ]}
         />
       </Header>
-      <TabNavigation tabs={tabs} />
+      <TabNavigation tabs={tabs} aluno={aluno} />
     </Wrapper>
   );
 }

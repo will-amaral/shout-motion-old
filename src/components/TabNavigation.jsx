@@ -3,7 +3,7 @@ import { Box, Divider, Tab, Tabs } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 function TabNavigation(props) {
-  const { tabs } = props;
+  const { tabs, ...rest } = props;
   const [currentTab, setCurrentTab] = useState(tabs[0].value);
 
   const handleTabsChange = (_, value) => {
@@ -29,7 +29,9 @@ function TabNavigation(props) {
         {tabs.map((tab) => {
           const Content = tab.content;
           return (
-            <Fragment key={tab.value}>{currentTab === tab.value && <Content />}</Fragment>
+            <Fragment key={tab.value}>
+              {currentTab === tab.value && <Content {...rest} />}
+            </Fragment>
           );
         })}
       </Box>

@@ -4,6 +4,8 @@ function HealthReports(props) {
   return <div>Relatórios de saúde</div>;
 }
 
-HealthReports.propTypes = {};
+HealthReports.propTypes = {
+  aluno: PropTypes.object,
+};
 
 export default HealthReports;
