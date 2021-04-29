@@ -118,7 +118,7 @@ function Table(props) {
   const classes = useStyles();
 
   return (
-    <Card sx={{ maxHeight: '60vh', width: '100%' }}>
+    <Card sx={{ width: '100%' }}>
       <DataGrid
         className={classes.root}
         localeText={localeText}

@@ -17,7 +17,7 @@ import tabs from './tabs';
 function AlunosDetail() {
   const { id } = useParams();
   const userRef = db.doc(`Users/${id}`);
-  const [aluno, loading, error] = useDocumentData(userRef);
+  const [aluno, loading, error] = useDocumentData(userRef, { idField: 'id' });
 
   const toggleStudent = () => {
     userRef.update({ active: !aluno.active });

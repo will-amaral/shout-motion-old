@@ -53,12 +53,13 @@ function ConfirmDialog(props) {
             {description}
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ p: 3 }}>
           <Button color='error' onClick={handleClose}>
             {cancelText}
           </Button>
           <Button
-            sx={{ color: 'text.primary' }}
+            color='success'
+            variant='contained'
             disabled={loading}
             onClick={onConfirm}
             autoFocus
