@@ -9,18 +9,12 @@ import {
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/lab';
 import { Formik } from 'formik';
+import { GENDERS } from 'utils/constants';
 
 function AlunosForm(props) {
   const { initialValues, validationSchema, onSubmit } = props;
 
-  const options = [
-    'Homem Cis',
-    'Mulher Cis',
-    'Homem Trans',
-    'Mulher Trans',
-    'Não-binário',
-    'Outro/Não-especificado',
-  ];
+  const options = Object.values(GENDERS);
 
   const tiers = [1, 2, 3, 4, 5];
 

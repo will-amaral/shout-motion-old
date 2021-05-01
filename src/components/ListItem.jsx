@@ -21,7 +21,7 @@ function ListItem(props) {
 
 ListItem.propTypes = {
   header: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ListItem;
