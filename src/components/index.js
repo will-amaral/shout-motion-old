@@ -12,6 +12,7 @@ export { default as ListItem } from './ListItem';
 export { default as Loadable } from './Loadable';
 export { default as LoadingScreen } from './LoadingScreen';
 export { default as Logo } from './Logo';
+export { default as Modal } from './Modal';
 export { default as NavItem } from './NavItem';
 export { default as NavSection } from './NavSection';
 export { default as Scrollbar } from './Scrollbar';

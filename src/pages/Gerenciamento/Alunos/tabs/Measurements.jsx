@@ -13,14 +13,14 @@ import {
 } from '@material-ui/core';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Plus } from 'components/icons';
-import { List, ListItem, LoadingScreen } from 'components';
+import { List, ListItem, LoadingScreen, Modal } from 'components';
 import Error from 'pages/Status/Error';
 import { db } from 'utils/lib/firebase';
 import { pollockEquation } from 'utils/helper/equations';
 
 function Measurements(props) {
   const { aluno } = props;
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState('vazio');
   const [superior, setSuperior] = useState();
   const [inferior, setInferior] = useState();
   const [skinfolds, setSkinfolds] = useState();
@@ -30,15 +30,14 @@ function Measurements(props) {
   );
 
   const handleChange = (event) => {
-    const item = data.find((el) => el.id === event.target.value);
-    setSelected(item);
+    setSelected(event.target.value);
   };
 
   useEffect(() => {
-    if (data && !selected) {
+    if (data && data.length > 0) {
       setSelected(data[0]);
     }
-  }, [data, selected]);
+  }, [data]);
 
   useEffect(() => {
     if (selected) {
@@ -52,29 +51,42 @@ function Measurements(props) {
 
   if (error) return <Error />;
 
-  if (!selected && data.length === 0) return <Typography>Não existem dados</Typography>;
-
-  if (!selected) return null;
-
   return (
     <>
       <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between' }}>
         <Select
           variant='outlined'
-          value={selected.id}
+          value={selected}
           name='selected'
           onChange={handleChange}
         >
+          <MenuItem disabled value='vazio'>
+            Escolha uma avaliação
+          </MenuItem>
           {data.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
+            <MenuItem key={item.id} value={item}>
               Avaliação - {item.createdAt.toDate().toLocaleDateString()}
             </MenuItem>
           ))}
         </Select>
-        <Button color='primary' startIcon={<Plus fontSize='small' />} sx={{ m: 1 }}>
-          Nova Avaliação
-        </Button>
+        <Modal
+          title='Nova Avaliação'
+          buttonProps={{
+            children: 'Nova avaliação',
+            startIcon: <Plus fontSize='small' />,
+            sx: { m: 1 },
+          }}
+        >
+          <div>Este é um modal</div>
+        </Modal>
       </Box>
+
+      {data.length === 0 && (
+        <Typography variant='body1' color='error'>
+          Você ainda não adicionou nenhuma avaliação! <br /> Clique no botão 'Nova
+          Avaliação' para adicionar uma.
+        </Typography>
+      )}
 
       <Grid container spacing={3}>
         {superior && (
