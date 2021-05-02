@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, Grid, Divider, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Grid,
+  Divider,
+  Typography,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { Plus } from 'components/icons';
 import { List, ListItem, LoadingScreen } from 'components';
 import Error from 'pages/Status/Error';
 import { db } from 'utils/lib/firebase';
@@ -17,6 +28,11 @@ function Measurements(props) {
     db.collection(`Users/${aluno.id}/Measurements`),
     { idField: 'id' }
   );
+
+  const handleChange = (event) => {
+    const item = data.find((el) => el.id === event.target.value);
+    setSelected(item);
+  };
 
   useEffect(() => {
     if (data && !selected) {
@@ -38,76 +54,99 @@ function Measurements(props) {
 
   if (!selected && data.length === 0) return <Typography>Não existem dados</Typography>;
 
-  if (!selected || !superior || !inferior || !skinfolds) return null;
+  if (!selected) return null;
 
   return (
-    <Grid container spacing={3}>
-      {superior && (
-        <Grid item lg={4} md={6} xs={12} xl={3}>
-          <Card>
-            <CardHeader
-              title='Circunferências (cm)'
-              subheader='Tronco e Membros Superiores'
-            />
-            <Divider />
-            <List>
-              <ListItem header='Tórax' value={superior.chest} />
-              <ListItem
-                header='Braço Direito Contraído'
-                value={superior.rArm.contracted}
+    <>
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between' }}>
+        <Select
+          variant='outlined'
+          value={selected.id}
+          name='selected'
+          onChange={handleChange}
+        >
+          {data.map((item) => (
+            <MenuItem key={item.id} value={item.id}>
+              Avaliação - {item.createdAt.toDate().toLocaleDateString()}
+            </MenuItem>
+          ))}
+        </Select>
+        <Button color='primary' startIcon={<Plus fontSize='small' />} sx={{ m: 1 }}>
+          Nova Avaliação
+        </Button>
+      </Box>
+
+      <Grid container spacing={3}>
+        {superior && (
+          <Grid item lg={4} md={6} xs={12} xl={3}>
+            <Card>
+              <CardHeader
+                title='Circunferências (cm)'
+                subheader='Tronco e Membros Superiores'
               />
-              <ListItem
-                header='Braço Esquerdo Contraído'
-                value={superior.lArm.contracted}
-              />
-              <ListItem header='Braço Direito Relaxado' value={superior.rArm.relaxed} />
-              <ListItem header='Braço Esquerdo Relaxado' value={superior.lArm.relaxed} />
-              <ListItem header='Antebraço Direito' value={superior.rForearm} />
-              <ListItem header='Antebraço Esquerdo' value={superior.lForearm} />
-              <ListItem header='Abdominal' value={superior.abdominal} />
-              <ListItem header='Cintura' value={superior.waist} />
-            </List>
-          </Card>
-        </Grid>
-      )}
-      {inferior && (
-        <Grid item lg={4} md={6} xs={12} xl={3}>
-          <Card>
-            <CardHeader title='Circunferências (cm)' subheader='Membros Inferiores' />
-            <Divider />
-            <List>
-              <ListItem header='Escapular' value={inferior.scapular} />
-              <ListItem header='Quadril' value={inferior.hip} />
-              <ListItem header='Coxa Direita' value={inferior.rThigh} />
-              <ListItem header='Coxa Esquerda' value={inferior.lThigh} />
-              <ListItem header='Panturrilha Direita' value={inferior.rCalf} />
-              <ListItem header='Panturrilha Esquerda' value={inferior.lCalf} />
-            </List>
-          </Card>
-        </Grid>
-      )}
-      {skinfolds && (
-        <Grid item lg={4} md={6} xs={12} xl={3}>
-          <Card>
-            <CardHeader title='Dobras (mm)' />
-            <Divider />
-            <List>
-              <ListItem header='Peitoral' value={skinfolds.chest} />
-              <ListItem header='Axilar Média' value={skinfolds.axilla} />
-              <ListItem header='Subescapular' value={skinfolds.subscapular} />
-              <ListItem header='Tricipital' value={skinfolds.tricep} />
-              <ListItem header='Suprailíaca' value={skinfolds.suprailiac} />
-              <ListItem header='Abdominal' value={skinfolds.abdominal} />
-              <ListItem header='Coxa' value={skinfolds.thigh} />
-              <ListItem
-                header='Densidade Corporal (g/cm³)'
-                value={pollockEquation(aluno, skinfolds)}
-              />
-            </List>
-          </Card>
-        </Grid>
-      )}
-    </Grid>
+              <Divider />
+              <List>
+                <ListItem header='Tórax' value={superior.chest} />
+                <ListItem
+                  header='Braço Direito Contraído'
+                  value={superior.rArm.contracted}
+                />
+                <ListItem
+                  header='Braço Esquerdo Contraído'
+                  value={superior.lArm.contracted}
+                />
+                <ListItem header='Braço Direito Relaxado' value={superior.rArm.relaxed} />
+                <ListItem
+                  header='Braço Esquerdo Relaxado'
+                  value={superior.lArm.relaxed}
+                />
+                <ListItem header='Antebraço Direito' value={superior.rForearm} />
+                <ListItem header='Antebraço Esquerdo' value={superior.lForearm} />
+                <ListItem header='Abdominal' value={superior.abdominal} />
+                <ListItem header='Cintura' value={superior.waist} />
+              </List>
+            </Card>
+          </Grid>
+        )}
+        {inferior && (
+          <Grid item lg={4} md={6} xs={12} xl={3}>
+            <Card>
+              <CardHeader title='Circunferências (cm)' subheader='Membros Inferiores' />
+              <Divider />
+              <List>
+                <ListItem header='Escapular' value={inferior.scapular} />
+                <ListItem header='Quadril' value={inferior.hip} />
+                <ListItem header='Coxa Direita' value={inferior.rThigh} />
+                <ListItem header='Coxa Esquerda' value={inferior.lThigh} />
+                <ListItem header='Panturrilha Direita' value={inferior.rCalf} />
+                <ListItem header='Panturrilha Esquerda' value={inferior.lCalf} />
+              </List>
+            </Card>
+          </Grid>
+        )}
+        {skinfolds && (
+          <Grid item lg={4} md={6} xs={12} xl={3}>
+            <Card>
+              <CardHeader title='Dobras (mm)' />
+              <Divider />
+              <List>
+                <ListItem header='Peitoral' value={skinfolds.chest} />
+                <ListItem header='Axilar Média' value={skinfolds.axilla} />
+                <ListItem header='Subescapular' value={skinfolds.subscapular} />
+                <ListItem header='Tricipital' value={skinfolds.tricep} />
+                <ListItem header='Suprailíaca' value={skinfolds.suprailiac} />
+                <ListItem header='Abdominal' value={skinfolds.abdominal} />
+                <ListItem header='Coxa' value={skinfolds.thigh} />
+                <ListItem
+                  header='Densidade Corporal (g/cm³)'
+                  value={pollockEquation(aluno, skinfolds)}
+                />
+              </List>
+            </Card>
+          </Grid>
+        )}
+      </Grid>
+    </>
   );
 }
 
