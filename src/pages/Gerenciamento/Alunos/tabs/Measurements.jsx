@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Button,
   Card,
   CardHeader,
   Grid,
@@ -17,6 +16,7 @@ import { List, ListItem, LoadingScreen, Modal } from 'components';
 import Error from 'pages/Status/Error';
 import { db } from 'utils/lib/firebase';
 import { pollockEquation } from 'utils/helper/equations';
+import NewForm from './NewForm';
 
 function Measurements(props) {
   const { aluno } = props;
@@ -76,8 +76,9 @@ function Measurements(props) {
             startIcon: <Plus fontSize='small' />,
             sx: { m: 1 },
           }}
+          maxWidth='md'
         >
-          <div>Este é um modal</div>
+          <NewForm />
         </Modal>
       </Box>
 

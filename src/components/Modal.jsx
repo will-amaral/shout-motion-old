@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Dialog, DialogTitle } from '@material-ui/core';
 
 function Modal(props) {
-  const { buttonProps, title, children } = props;
+  const { buttonProps, title, children, ...rest } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -14,11 +14,12 @@ function Modal(props) {
       <Button onClick={handleOpen} {...buttonProps} />
       <Dialog
         fullWidth
-        maxWidth='xs'
+        maxWidth='lg'
         open={open}
         onClose={handleClose}
         aria-labelledby='confirmation-dialog-title'
         aria-describedby='confirmation-dialog-description'
+        {...rest}
       >
         <DialogTitle id='confirmation-dialog-title'>{title}</DialogTitle>
         {cloneElement(children, { close: handleClose })}
