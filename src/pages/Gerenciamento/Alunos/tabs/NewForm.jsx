@@ -58,8 +58,6 @@ function NewForm(props) {
     }
   };
 
-  console.log(superior);
-
   return (
     <>
       <DialogContent>
@@ -73,87 +71,89 @@ function NewForm(props) {
         <Typography variant='h5' textAlign='center'>
           {steps[active]}
         </Typography>
-        <Grid container spacing={4} mt={1} justifyContent='center'>
-          {}
-          <Grid item>
-            <Box mb={2}>
-              <TextField
-                name='chest'
-                label='Tórax'
-                onChange={handleChange}
-                value={superior.chest}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                name='rArmContracted'
-                label='Braço Direito Contraído'
-                onChange={handleChange}
-                value={superior.rArmContracted}
-              />
-            </Box>
-            <Box>
-              <TextField
-                name='lArmContracted'
-                label='Braço Esquerdo Contraído'
-                onChange={handleChange}
-                value={superior.lArmContracted}
-              />
-            </Box>
+
+        {active === 0 && (
+          <Grid container spacing={4} mt={1} justifyContent='center'>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='chest'
+                  label='Tórax'
+                  onChange={handleChange}
+                  value={superior.chest}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='rArmContracted'
+                  label='Braço Direito Contraído'
+                  onChange={handleChange}
+                  value={superior.rArmContracted}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='lArmContracted'
+                  label='Braço Esquerdo Contraído'
+                  onChange={handleChange}
+                  value={superior.lArmContracted}
+                />
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='rArmRelaxed'
+                  label='Braço Direito Relaxado'
+                  onChange={handleChange}
+                  value={superior.rArmRelaxed}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='lArmRelaxed'
+                  label='Braço Esquerdo Relaxado'
+                  onChange={handleChange}
+                  value={superior.lArmRelaxed}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='rForearm'
+                  label='Antebraço Direito'
+                  onChange={handleChange}
+                  value={superior.rForearm}
+                />
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='lForearm'
+                  label='Antebraço Esquerdo'
+                  onChange={handleChange}
+                  value={superior.lForearm}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='abdominal'
+                  label='Abdominal'
+                  onChange={handleChange}
+                  value={superior.abdominal}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='waist'
+                  label='Cintura'
+                  onChange={handleChange}
+                  value={superior.waist}
+                />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Box mb={2}>
-              <TextField
-                name='rArmRelaxed'
-                label='Braço Direito Relaxado'
-                onChange={handleChange}
-                value={superior.rArmRelaxed}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                name='lArmRelaxed'
-                label='Braço Esquerdo Relaxado'
-                onChange={handleChange}
-                value={superior.lArmRelaxed}
-              />
-            </Box>
-            <Box>
-              <TextField
-                name='rForearm'
-                label='Antebraço Direito'
-                onChange={handleChange}
-                value={superior.rForearm}
-              />
-            </Box>
-          </Grid>
-          <Grid item>
-            <Box mb={2}>
-              <TextField
-                name='lForearm'
-                label='Antebraço Esquerdo'
-                onChange={handleChange}
-                value={superior.lForearm}
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                name='abdominal'
-                label='Abdominal'
-                onChange={handleChange}
-                value={superior.abdominal}
-              />
-            </Box>
-            <Box>
-              <TextField
-                name='waist'
-                label='Cintura'
-                onChange={handleChange}
-                value={superior.waist}
-              />
-            </Box>
-          </Grid>
-        </Grid>
+        )}
       </DialogContent>
       <DialogActions>
         {active === 0 ? (
