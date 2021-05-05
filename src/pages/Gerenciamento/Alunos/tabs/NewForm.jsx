@@ -13,6 +13,7 @@ import {
   Step,
   StepLabel,
 } from '@material-ui/core';
+import { NumberFormat } from 'components';
 
 const steps = ['Tronco e Membros Superiores', 'Membros Inferiores', 'Dobras'];
 
@@ -29,34 +30,35 @@ function NewForm(props) {
     abdominal: '',
     waist: '',
   });
-  const [inferior, setInferior] = useState();
-  const [skinfolds, setSkinfolds] = useState();
+  const [inferior, setInferior] = useState({
+    scapular: '',
+    hip: '',
+    rThigh: '',
+    lThigh: '',
+    rCalf: '',
+    lCalf: '',
+  });
+  const [skinfolds, setSkinfolds] = useState({
+    chest: '',
+    axilla: '',
+    subscapular: '',
+    tricep: '',
+    suprailiac: '',
+    abdominal: '',
+    thigh: '',
+  });
 
   const handleNext = () => setActive((prev) => prev + 1);
   const handleBack = () => setActive((prev) => prev - 1);
 
-  const handleChange = (e) => {
-    const obj = {};
-    const { name, value } = e.target;
-    obj[name] = value;
+  const handleSuperiorChange = (e) =>
+    setSuperior((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-    switch (active) {
-      case 0:
-        setSuperior((prev) => ({ ...prev, ...obj }));
-        break;
+  const handleInferiorChange = (e) =>
+    setInferior((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-      case 1:
-        setInferior((prev) => ({ ...prev, ...obj }));
-        break;
-
-      case 2:
-        setSkinfolds((prev) => ({ ...prev, ...obj }));
-        break;
-
-      default:
-        break;
-    }
-  };
+  const handleSkinfoldChange = (e) =>
+    setSkinfolds((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   return (
     <>
@@ -79,24 +81,27 @@ function NewForm(props) {
                 <TextField
                   name='chest'
                   label='Tórax'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
                   value={superior.chest}
+                  InputProps={{ inputComponent: NumberFormat }}
                 />
               </Box>
               <Box mb={2}>
                 <TextField
                   name='rArmContracted'
                   label='Braço Direito Contraído'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
                   value={superior.rArmContracted}
+                  InputProps={{ inputComponent: NumberFormat }}
                 />
               </Box>
               <Box>
                 <TextField
                   name='lArmContracted'
                   label='Braço Esquerdo Contraído'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
                   value={superior.lArmContracted}
+                  InputProps={{ inputComponent: NumberFormat }}
                 />
               </Box>
             </Grid>
@@ -105,7 +110,8 @@ function NewForm(props) {
                 <TextField
                   name='rArmRelaxed'
                   label='Braço Direito Relaxado'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.rArmRelaxed}
                 />
               </Box>
@@ -113,7 +119,8 @@ function NewForm(props) {
                 <TextField
                   name='lArmRelaxed'
                   label='Braço Esquerdo Relaxado'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.lArmRelaxed}
                 />
               </Box>
@@ -121,7 +128,8 @@ function NewForm(props) {
                 <TextField
                   name='rForearm'
                   label='Antebraço Direito'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.rForearm}
                 />
               </Box>
@@ -131,7 +139,8 @@ function NewForm(props) {
                 <TextField
                   name='lForearm'
                   label='Antebraço Esquerdo'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.lForearm}
                 />
               </Box>
@@ -139,7 +148,8 @@ function NewForm(props) {
                 <TextField
                   name='abdominal'
                   label='Abdominal'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.abdominal}
                 />
               </Box>
@@ -147,8 +157,144 @@ function NewForm(props) {
                 <TextField
                   name='waist'
                   label='Cintura'
-                  onChange={handleChange}
+                  onChange={handleSuperiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
                   value={superior.waist}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        )}
+
+        {active === 1 && (
+          <Grid container spacing={4} mt={1} justifyContent='center'>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='scapular'
+                  label='Escapular'
+                  onChange={handleInferiorChange}
+                  value={inferior.scapular}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='hip'
+                  label='Quadril'
+                  onChange={handleInferiorChange}
+                  value={inferior.hip}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='rThigh'
+                  label='Coxa Direita'
+                  onChange={handleInferiorChange}
+                  value={inferior.rThigh}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='lThigh'
+                  label='Coxa Esquerda'
+                  onChange={handleInferiorChange}
+                  value={inferior.lThigh}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='rCalf'
+                  label='Panturrilha Direita'
+                  onChange={handleInferiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
+                  value={inferior.rCalf}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='lCalf'
+                  label='Panturrilha Esquerda'
+                  onChange={handleInferiorChange}
+                  InputProps={{ inputComponent: NumberFormat }}
+                  value={inferior.lCalf}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        )}
+
+        {active === 2 && (
+          <Grid container spacing={4} mt={1} justifyContent='center'>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='chest'
+                  label='Peitoral'
+                  onChange={handleSkinfoldChange}
+                  value={skinfolds.chest}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='axilla'
+                  label='Axilar Média'
+                  onChange={handleSkinfoldChange}
+                  value={skinfolds.axilla}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='subscapular'
+                  label='Subescapular'
+                  onChange={handleSkinfoldChange}
+                  value={skinfolds.subscapular}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='tricep'
+                  label='Tricipital'
+                  onChange={handleSkinfoldChange}
+                  value={skinfolds.tricep}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box mb={2}>
+                <TextField
+                  name='suprailiac'
+                  label='Suprailíaca'
+                  onChange={handleSkinfoldChange}
+                  value={skinfolds.suprailiac}
+                  InputProps={{ inputComponent: NumberFormat }}
+                />
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name='abdominal'
+                  label='Abdominal'
+                  onChange={handleSkinfoldChange}
+                  InputProps={{ inputComponent: NumberFormat }}
+                  value={skinfolds.abdominal}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  name='thigh'
+                  label='Coxa'
+                  onChange={handleSkinfoldChange}
+                  InputProps={{ inputComponent: NumberFormat }}
+                  value={skinfolds.thigh}
                 />
               </Box>
             </Grid>
